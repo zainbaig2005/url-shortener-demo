@@ -5,16 +5,19 @@ function shortenUrl() {
     return;
   }
 
-  // Generate a fake short hash
   const hash = Math.random().toString(36).substring(2, 7);
-  const shortUrl = `https://zainbaig2005.github.io/url-shortener-demo/?r=${hash}`;
+  const shortUrl = `${window.location.origin}${window.location.pathname}?r=${hash}`;
 
-  const resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = `
+  // Save mapping in localStorage
+  const redirects = JSON.parse(localStorage.getItem("redirects") || "{}");
+  redirects[hash] = input;
+  localStorage.setItem("redirects", JSON.stringify(redirects));
+
+  document.getElementById("result").innerHTML = `
     <p>Shortened URL:</p>
     <input type="text" id="shortLink" value="${shortUrl}" readonly style="width: 350px;" />
     <button onclick="copyLink()">Copy</button>
-    <br><small>(Redirect simulation only. This link won't actually work unless it's hardcoded.)</small>
+    <br><small>(Will work only in this browser/device)</small>
   `;
 }
 
