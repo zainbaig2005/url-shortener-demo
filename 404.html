@@ -1,28 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Redirecting...</title>
-</head>
-<body>
-  <p>Checking for redirect...</p>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const r = params.get('r');
+  if (r) {
+    // simulate redirection – you'd hardcode these mappings in a real demo
+    const redirects = {
+      "abcde": "https://example.com",
+      "xyz12": "https://openai.com"
+    };
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const r = params.get("r");
-
-    if (r) {
-      const redirects = JSON.parse(localStorage.getItem("redirects") || "{}");
-      const url = redirects[r];
-
-      if (url) {
-        window.location.href = url;
-      } else {
-        document.body.innerHTML = "<h3>This short link doesn’t exist on this device.</h3>";
-      }
+    if (redirects[r]) {
+      window.location.href = redirects[r];
     } else {
-      document.body.innerHTML = "<h3>Page not found.</h3>";
+      document.write("Invalid or unknown short link.");
     }
-  </script>
-</body>
-</html>
+  } else {
+    document.write("Page not found.");
+  }
+</script>
