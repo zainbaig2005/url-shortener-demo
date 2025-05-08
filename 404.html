@@ -5,27 +5,23 @@
   <title>Redirecting...</title>
 </head>
 <body>
-  <h2>Hold on — we're redirecting you!</h2>
-  <p>If you are not redirected in 5 seconds, <a id="realLink" href="#">click here</a>.</p>
+  <p>Checking for redirect...</p>
 
   <script>
-    const redirects = {
-      "nyt01": "https://www.nytimes.com/interactive/2024/12/01/climate/climate-change-visual-guide.html",
-      "gh": "https://github.com/zainbaig2005/url-shortener-demo",
-      "yt": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    };
-
     const params = new URLSearchParams(window.location.search);
     const r = params.get("r");
-    const link = redirects[r];
 
-    if (link) {
-      document.getElementById("realLink").href = link;
-      setTimeout(() => {
-        window.location.href = link;
-      }, 5000);
+    if (r) {
+      const redirects = JSON.parse(localStorage.getItem("redirects") || "{}");
+      const url = redirects[r];
+
+      if (url) {
+        window.location.href = url;
+      } else {
+        document.body.innerHTML = "<h3>This short link doesn’t exist on this device.</h3>";
+      }
     } else {
-      document.body.innerHTML = "<h3>Short link not found.</h3>";
+      document.body.innerHTML = "<h3>Page not found.</h3>";
     }
   </script>
 </body>
