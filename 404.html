@@ -1,14 +1,10 @@
 <script>
-  const redirects = {
-    "nyt01": "https://www.nytimes.com/...",
-    "gh": "https://github.com/zainbaig2005/url-shortener-demo",
-    "yt": "https://youtube.com/..."
-  };
-
   const r = new URLSearchParams(window.location.search).get("r");
+  const redirects = JSON.parse(localStorage.getItem("redirects") || "{}");
+
   if (redirects[r]) {
     window.location.href = redirects[r];
   } else {
-    document.body.innerHTML = "Short link not found.";
+    document.body.innerHTML = "Short link not found (or created in another browser).";
   }
 </script>
