@@ -5,17 +5,12 @@ function shortenUrl() {
     return;
   }
 
-  // Generate fake short hash
+  // Simulate shortening using a fake hash
   const hash = Math.random().toString(36).substring(2, 7);
-  const shortUrl = `https://zainbaig2005.github.io/url-shortener-demo/?r=${hash}`;
-
-  // Save in browser localStorage
-  const redirects = JSON.parse(localStorage.getItem("redirects") || "{}");
-  redirects[hash] = input;
-  localStorage.setItem("redirects", JSON.stringify(redirects));
+  const shortUrl = `https://yourgithubusername.github.io/url-shortener-demo/?r=${hash}`;
 
   document.getElementById("result").innerHTML = `
-    Shortened URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>
-    <br><small>(Will only work in this browser)</small>
+    Shortened URL: <a href="${input}" target="_blank">${shortUrl}</a>
+    <br><small>(Redirect simulation only)</small>
   `;
 }
