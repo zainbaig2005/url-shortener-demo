@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>URL Shortener Demo</title>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <h1>Simple URL Shortener (Demo)</h1>
-  <input type="text" id="longUrl" placeholder="Enter a long URL" />
-  <button onclick="shortenUrl()">Shorten</button>
+<script>
+  // Check if there's a redirect code in the URL
+  const r = new URLSearchParams(window.location.search).get("r");
+  if (r) {
+    const redirects = JSON.parse(localStorage.getItem("redirects") || "{}");
+    const destination = redirects[r];
 
-  <p id="result"></p>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    if (destination) {
+      window.location.href = destination;
+    } else {
+      document.body.innerHTML = "<h3>Short link not found (or created on a different device).</h3>";
+    }
+  }
+</script>
